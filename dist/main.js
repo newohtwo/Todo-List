@@ -1,0 +1,1 @@
+(()=>{"use strict";!function(){document.querySelector(".menu-icon").onclick=function(){"side-bar"===s.classList[0]?s.classList="display-none":s.classList="side-bar"};const s=document.querySelector("#sidebar")}()})();
