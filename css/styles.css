@@ -84,6 +84,7 @@ header h1{
     height: 100%;
     background-color: #D4E4F7;
     z-index: 1;
+    overflow: scroll;
 }
 
 .display-none{
@@ -101,7 +102,7 @@ header h1{
 #add-project-btn{
     margin-top: 10px;
     top: 10px;
-    background-color: rgba(0, 255, 255, 0.593);
+    background-color: #83b8fa;
     width: 100%;
     font-size: 1rem;
 }
@@ -110,10 +111,15 @@ header h1{
 
 }
 
+
 #plus-icon-project{
     font-weight: 900;
     font-size: 1.3rem;
     
+}
+
+form{
+    background-color: antiquewhite;
 }
 
 .project{
