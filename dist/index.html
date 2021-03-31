@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="/dist/css/styles.css">
+  <title>ToDoList</title>
+
+</head>
+
+<header>
+  <div class="menu-icon">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <img src="./imgs/list.png" alt="Board with list of checks"></img>
+  <h1>ToDoList</h1>
+</header>
+
+<body>
+  <div class="display-none" id="sidebar">
+    <h2>Projects:</h2>
+     <!--
+    <form id = "project-form">
+      test
+    </form>
+    -->
+    <button id="add-project-btn">New Project <span id="plus-icon-project">+</span></button>
+    
+    
     
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="/dist/css/styles.css">
-    <title>ToDoList</title>
-    
-  </head>
 
-  <header>
-    <div class = "menu-icon">
-      <div></div>
-      <div></div>
-      <div></div> 
-    </div>
-
-    <img src="./imgs/list.png" alt="Board with list of checks"></img>
-    <h1>ToDoList</h1>
-  </header>
-
-  <body>
-    <div class = "display-none" id = "sidebar">
-      <h2>Projects:</h2>
-      <button id = "add-project-btn">New Project <span id = "plus-icon-project">+</span></button>
+    <!--
       <div class = "project">
         dummy projectaaaa
       </div>
-    </div>
-      
-    <script src="main.js"></script>
-  </body>
+    -->
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
 </html>
