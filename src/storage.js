@@ -92,8 +92,15 @@ const myStorage = (() =>{
         localStorage.setItem(flagName , value);
     }
 
+    //convert flag into boolean
     function getFlag(flagName){
-        return localStorage.getItem(flagName) === "true" ?  true :  false;
+
+        let flag =localStorage.getItem(flagName);
+        console.log("flag " + flag);
+        if(flag === "true" || flag === null){
+            return true;
+        }
+        return false;
     }
 
     function deleteProject(title){
@@ -111,6 +118,19 @@ const myStorage = (() =>{
         localStorage.removeItem("defualt");
     }
 
+    (function initUiFromStorage(){
+        let size = localStorage.length;
+        for (var i = 0; i < size; i++){
+            let temp =localStorage.getItem(localStorage.key(i));
+
+                if(temp !== "true" && temp !== "false"){
+                    //need to get the projects and initialize the tasks from here
+                    console.log("from storage");
+                    console.log(temp);
+                }
+        }
+    })();
+
 
     return{
         saveProject,
@@ -119,6 +139,27 @@ const myStorage = (() =>{
         getFlag,
         deleteProject,
     }
+})();
+
+
+//NEED TO WORK ON THIS PART TO FIGURE OUT HOW TO INIT PROJECT AND TASKS FROM HERE
+const initializeUiFromStorage =(() =>{
+
+    (function initUiFromStorage(){
+        let size = localStorage.length;
+        let temp = "";
+        console.log("in storage " + typeof temp + "  " + size);
+        for (var i = 0; i < size; i++){
+            temp = localStorage.key(i);
+            console.log("in storage " + typeof temp);
+            console.log(temp);
+        }
+    })();
+
+    return {
+
+    }
+
 })();
 
 export {myStorage};

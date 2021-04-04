@@ -64,8 +64,27 @@ const projectHandler = (() =>{
     function newProject(title ,arr){
       if(arr === undefined){
         //create a new project with empty arr and save it to mystorage for ui
+        newProjectFromUi(title);
       }
       return _projectFactory(title , arr);
+    }
+
+    function newProjectFromUi(title){
+      //check existence
+      if(checkForDuplicates(title)){
+        let project = _projectFactory(title);
+        myStorage.saveProject(project);
+        elementCreator.projectToElment(project);
+      }
+    }
+
+    function checkForDuplicates(title){
+      if(myStorage.getProject(title)){
+        console.log("there already is such an item");
+        return false;
+      }
+      console.log("new item");
+      return true;
     }
 
     
@@ -136,7 +155,7 @@ const defualtData = (()=>{
 
     let defualtKey = myStorage.getFlag("defualtFlag");
     let defaultProject = myStorage.getProject("defualt");
-
+    
     _checkExistence(defualtKey , defaultProject);
 
 
@@ -144,14 +163,15 @@ const defualtData = (()=>{
 
   //check the existence of the project, create or retrive from local
   function _checkExistence(defualtKey , defaultProject){
-
-    if(defaultProject === undefined &&  (defualtKey === true || defualtKey === undefined || defualtKey === null)){
+    console.log(defaultProject);
+    if(defaultProject === undefined &&  (defualtKey === true || defualtKey === undefined)){
       console.log("in init of defualt project");
       _saveDefualtProject();
       myStorage.saveFlag("defualtFlag" , true); 
+      
     }else if(defualtKey){
       //if there is show it on the ui 
-
+      
       elementCreator.projectToElment(defaultProject);
       
     }

@@ -1,5 +1,6 @@
 
 import {myStorage} from "./storage";
+import {projectHandler} from "./objects";
 
 //add elements with thier behaviour
 const elementCreator = (() =>{
@@ -112,6 +113,10 @@ const elementCreator = (() =>{
         let element = document.querySelector("#add-btn");
         element.onclick = function(){
             //add here the logic for creating new projects
+            
+            let title = dom.getInputForm().value;
+            projectHandler.newProject(title);
+
         }
         return element;
     }
@@ -159,6 +164,7 @@ const dom = (() => {
     const cancelBtn = elementCreator._initCancelBtn();
     const projectTextForm = elementCreator._initForm();
     const popupForm = elementCreator._initNewProjectForm();
+    const formInput = document.querySelector("#new-project-name");
     
     //will make popup show and than enter some data into it, will have add and cancel buttons
     function newProjectPopUp(){
@@ -176,6 +182,10 @@ const dom = (() => {
         sidebar.removeChild(element);
     }
 
+    function errorAlret(message){
+        alert(message);
+    }
+
    
 
     function getSideBar(){
@@ -187,6 +197,9 @@ const dom = (() => {
     function getProjectBtn(){
         return addProjectBtn;
     }
+    function getInputForm(){
+        return formInput;
+    }
 
 
 
@@ -196,6 +209,8 @@ const dom = (() => {
        getSideBar,
        getPopUpForm,
        getProjectBtn,
+       getInputForm,
+       errorAlret,
        
     }
 

@@ -6,7 +6,6 @@ import {myStorage} from "./storage";
 //myStorage.saveFlag("defualtFlag",true);
 
 
-
 //TODO finish input of porject area, add logic of add button
 //add the newly created objects in myStorage and ui
 
