@@ -1,5 +1,6 @@
 //factory function for todotasks
 import {myStorage} from "./storage";
+import { elementCreator } from "./user-interface";
 const _toDoTaskFactory = (title,desc,date,prio = 1) =>{
 
     //getters setters
@@ -60,9 +61,14 @@ const _projectFactory = (title,toDoArr =[]) =>{
 //handle all the needed actions on a project
 const projectHandler = (() =>{
 
-    function newProject(title ,arr =[]){
-        return _projectFactory(title , arr);
+    function newProject(title ,arr){
+      if(arr === undefined){
+        //create a new project with empty arr and save it to mystorage for ui
+      }
+      return _projectFactory(title , arr);
     }
+
+    
 
     function addTask(project,task){
         project.getTaskArr().push(task);
@@ -115,32 +121,49 @@ const taskHandler = (() =>{
 //create defualt data of project and task
 const defualtData = (()=>{
 
-  //make this iffe function that will run with every webstart
-  function defualtProject(){
+  
+  function _saveDefualtProject(){
     myStorage.saveProject(_createProject());
-
-
   }
   //initialize the defualt project that will apear on the start of the website, need to make sure that it dosent start after deleteion hence why there is 2 flags
   //make sure it works that it appears once and if deleted dosent apear
-  function initDefualtProject(){
-    if(myStorage.getProject("defualt") === undefined){
-      defualtProject();
-      myStorage.saveFlag("defualtFlag" , true);
 
-      if(myStorage.getFlag("defualtDeleted") === undefined);{
-        myStorage.saveFlag("defualtDeleted",false);
-      }
 
-    }else{
+
+
+  //initalize defualt project, save it to storage, if was deleted wont show it again
+  (function initDefualtProject(){
+
+    let defualtKey = myStorage.getFlag("defualtFlag");
+    let defaultProject = myStorage.getProject("defualt");
+
+    _checkExistence(defualtKey , defaultProject);
+
+
+  })();
+
+  //check the existence of the project, create or retrive from local
+  function _checkExistence(defualtKey , defaultProject){
+
+    if(defaultProject === undefined &&  (defualtKey === true || defualtKey === undefined || defualtKey === null)){
+      console.log("in init of defualt project");
+      _saveDefualtProject();
+      myStorage.saveFlag("defualtFlag" , true); 
+    }else if(defualtKey){
       //if there is show it on the ui 
+
+      elementCreator.projectToElment(defaultProject);
+      
     }
+
   }
+
   
-  
+  //create a new project and add defualt task
   function _createProject(){
-    let defualtPrj = projectHandler.newProject("defualt");
-     defualtPrj.addTask(_createTask());
+    let emptyArray = [];
+    let defualtPrj = projectHandler.newProject("defualt" ,emptyArray);
+    projectHandler.addTask(defualtPrj , _createTask());
      return defualtPrj;
    }
 
@@ -149,16 +172,13 @@ const defualtData = (()=>{
   }
 
   return{
-    defualtProject,
+    defualtProject: _saveDefualtProject,
   }
 
 })();
 
  export {projectHandler,taskHandler};
 
-/*
-can make a moudle that will handle task updates or removes
-can make a moudle that will handle project add update delete ect..
-*/
 
-//const swap = ([first, second]) => [second, first];
+
+

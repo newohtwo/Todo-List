@@ -1,5 +1,6 @@
 //TODO create the local storage here and make a first save of a defualt project than get that save and place it in ui and in a variable 
 import {projectHandler,taskHandler} from "./objects";
+import {elementCreator} from "./user-interface";
 
 //converts data from defualt to custom objects and vise versa
 const convertHelper = (() =>{
@@ -43,6 +44,12 @@ const convertHelper = (() =>{
 
     //convert object into private project
     function objectToProject(object){
+        
+        if(object === null){
+            console.log("here");
+            return undefined;
+        }
+
         let tempO = object;
         let tempArr = tempO.toDoArr;
         let size = tempArr.length;
@@ -86,7 +93,22 @@ const myStorage = (() =>{
     }
 
     function getFlag(flagName){
-       return localStorage.getItem(flagName);
+        return localStorage.getItem(flagName) === "true" ?  true :  false;
+    }
+
+    function deleteProject(title){
+        if(title ==="defualt"){
+            _deleteDefualt();
+            return;
+        }
+
+        localStorage.removeItem(title);
+    }
+
+
+    function _deleteDefualt(){
+        myStorage.saveFlag("defualtFlag" , true);
+        localStorage.removeItem("defualt");
     }
 
 
@@ -95,6 +117,7 @@ const myStorage = (() =>{
         getProject,
         saveFlag,
         getFlag,
+        deleteProject,
     }
 })();
 

@@ -82,9 +82,11 @@ header h1{
     display: block;
     width: 200px;
     height: 100%;
-    background-color: #D4E4F7;
+    background-color: #ffffff49;
     z-index: 1;
     overflow: scroll;
+    border-right: solid 2px rgba(0, 0, 0, 0.171);
+    
 }
 
 .display-none{
@@ -105,16 +107,49 @@ header h1{
     background-color: #83b8fa;
     width: 100%;
     font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 60px;
 }
 
 #add-project-btn :hover{
 
 }
 
+.add-cancel-project-container{
+    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    bottom: 95px;
+    
+}
+
+.add-cancel-project-container form{
+    padding-left: 10px;
+    background-color: transparent;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 7px;
+}
+
+#add-btn{
+    background-color: green;
+    font-size: 20px;
+    
+}
+#cancel-btn{
+    background-color: red;
+    font-size: 20px;
+}
+
 
 #plus-icon-project{
     font-weight: 900;
     font-size: 1.3rem;
+    
     
 }
 
@@ -126,14 +161,35 @@ form{
     width: 100%;
     padding-top: 5px;
     height: 23px;
-    background-color: blanchedalmond;
+    background-color: rgb(255, 235, 205);
     margin-top: 10px;
-    text-align: center;
+    
     text-overflow: ellipsis;
     word-break: break-all;
     overflow: hidden;
-    
+    display: flex;
+    justify-content: space-evenly;
 }
+
+.project span{
+    font-size: 1.7rem;
+    position: relative;
+    bottom: 9px;
+    left: 20px;
+    font: bold;
+    cursor: pointer;
+
+
+}
+
+
+body div .project:hover{
+    background-color:rgb(204, 204, 204);
+}
+
+
+
+
 
 
 @media only screen and (min-width:768px){
