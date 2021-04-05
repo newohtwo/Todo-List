@@ -1,13 +1,16 @@
 import {projectHandler,taskHandler} from "./objects";
 import {dom} from "./user-interface";
-import {myStorage} from "./storage";
+import {myStorage ,initializeUiFromStorage} from "./storage";
 
+
+initializeUiFromStorage.initUiFromStorage();
 
 //myStorage.saveFlag("defualtFlag",true);
 
 
 //TODO finish input of porject area, add logic of add button
 //add the newly created objects in myStorage and ui
+
 
 
 //TODO create demo tasks in html and css 

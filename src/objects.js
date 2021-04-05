@@ -1,6 +1,7 @@
 //factory function for todotasks
 import {myStorage} from "./storage";
-import { elementCreator } from "./user-interface";
+import {elementCreator} from "./user-interface";
+
 const _toDoTaskFactory = (title,desc,date,prio = 1) =>{
 
     //getters setters
@@ -62,11 +63,15 @@ const _projectFactory = (title,toDoArr =[]) =>{
 const projectHandler = (() =>{
 
     function newProject(title ,arr){
+      
       if(arr === undefined){
         //create a new project with empty arr and save it to mystorage for ui
+        
         newProjectFromUi(title);
       }
+      
       return _projectFactory(title , arr);
+     
     }
 
     function newProjectFromUi(title){
@@ -75,16 +80,19 @@ const projectHandler = (() =>{
         let project = _projectFactory(title);
         myStorage.saveProject(project);
         elementCreator.projectToElment(project);
+        
       }
+
     }
 
     function checkForDuplicates(title){
-      if(myStorage.getProject(title)){
-        console.log("there already is such an item");
-        return false;
+      
+      if(localStorage.getItem(title) === null){
+        console.log("in true");
+        return true;
       }
-      console.log("new item");
-      return true;
+      elementCreator.errorAlret("a project with this name already exists");
+      return false;
     }
 
     
@@ -163,12 +171,11 @@ const defualtData = (()=>{
 
   //check the existence of the project, create or retrive from local
   function _checkExistence(defualtKey , defaultProject){
-    console.log(defaultProject);
+    
     if(defaultProject === undefined &&  (defualtKey === true || defualtKey === undefined)){
-      console.log("in init of defualt project");
+      
       _saveDefualtProject();
       myStorage.saveFlag("defualtFlag" , true); 
-      
     }else if(defualtKey){
       //if there is show it on the ui 
       
@@ -196,6 +203,7 @@ const defualtData = (()=>{
   }
 
 })();
+
 
  export {projectHandler,taskHandler};
 

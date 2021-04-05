@@ -50,6 +50,9 @@ const elementCreator = (() =>{
         let element = document.querySelector("#sidebar");
         return element;
     }
+
+
+
      //toggle between block and none sidebar
      function _toggleSideBar(sideBar){
         sideBar.classList[0] === "side-bar" ? sideBar.classList = "display-none" : sideBar.classList = "side-bar";
@@ -57,13 +60,14 @@ const elementCreator = (() =>{
 
     //toggle the newproject button
    function _toggleProjectBtn(btn){
-        console.log(btn.style.visibility);
+       
         if(btn.style.visibility === "hidden"){
             btn.style.visibility = "visible";
         }else{
             btn.style.visibility = "hidden"
         }
    }
+
    //toggle the form with the buttons
     function _togglePopForm(form){
         
@@ -108,14 +112,20 @@ const elementCreator = (() =>{
 
 
 
-
+    //takes input from form and sends it to projecthandler
     function _initAddBtn (){
         let element = document.querySelector("#add-btn");
         element.onclick = function(){
             //add here the logic for creating new projects
-            
-            let title = dom.getInputForm().value;
-            projectHandler.newProject(title);
+            let inputForm = dom.getInputForm();
+            if(inputForm.value === ""){
+                alert("name cannot be empty");
+                return;
+            }
+            projectHandler.newProject(inputForm.value);
+            inputForm.value = "";
+
+
 
         }
         return element;
@@ -126,6 +136,7 @@ const elementCreator = (() =>{
         element.onclick = function(){
             _toggleProjectBtn(dom.getProjectBtn());
             _togglePopForm(dom.getPopUpForm());
+            dom.getInputForm().value = "";
         }
         return element;
     }
@@ -133,6 +144,10 @@ const elementCreator = (() =>{
     function  _initForm() {
         let element = document.querySelector("#new-project-name");
         return element;
+    }
+
+    function errorAlret(message){
+        alert(message);
     }
 
 
@@ -148,6 +163,7 @@ const elementCreator = (() =>{
         _initProjectBtn,
         _initSideBar,
         _initNewProjectForm,
+        errorAlret,
 
     }
 
@@ -182,9 +198,7 @@ const dom = (() => {
         sidebar.removeChild(element);
     }
 
-    function errorAlret(message){
-        alert(message);
-    }
+   
 
    
 
@@ -210,7 +224,7 @@ const dom = (() => {
        getPopUpForm,
        getProjectBtn,
        getInputForm,
-       errorAlret,
+       
        
     }
 

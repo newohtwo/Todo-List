@@ -1,6 +1,8 @@
-//TODO create the local storage here and make a first save of a defualt project than get that save and place it in ui and in a variable 
-import {projectHandler,taskHandler} from "./objects";
+import {taskHandler,projectHandler} from "./objects";
 import {elementCreator} from "./user-interface";
+
+
+
 
 //converts data from defualt to custom objects and vise versa
 const convertHelper = (() =>{
@@ -45,29 +47,39 @@ const convertHelper = (() =>{
     //convert object into private project
     function objectToProject(object){
         
-        if(object === null){
-            console.log("here");
+        if(object === null){ 
+            console.log("object empty");
             return undefined;
         }
 
         let tempO = object;
-        let tempArr = tempO.toDoArr;
-        let size = tempArr.length;
 
-        for(let i = 0 ; i < size; i++){
-            tempArr[i] = _objToTask(tempArr[i]);
+        console.log("todoarr " + tempO.toDoArr.length );
+        let size = tempO.toDoArr.length;
+        let tempArr = [];
+
+        if(size > 0){
+            tempArr = tempO.toDoArr;
+            for(let i = 0 ; i < size; i++){
+                tempArr[i] = _objToTask(tempArr[i]);
+            }
         }
-
-       return projectHandler.newProject(tempO.title,tempO.toDoArr);
+        
+        
+        return projectHandler.newProject(tempO.title,tempO.toDoArr);
+        
     }
     //create a new task from obj
     function _objToTask(obj){
        return taskHandler.newTask(obj.title,obj.desc,obj.date,obj.prio);
     }
 
+
+    
+
     return{
        projectToObject,
-       objectToProject
+       objectToProject,
     }
 
 })();
@@ -79,12 +91,15 @@ const myStorage = (() =>{
     //save project after convertion into object in localstorage
     function saveProject(project){
         let tempP = project;
+        
         localStorage.setItem(tempP.getTitle(),JSON.stringify(convertHelper.projectToObject(tempP)));
     }
 
     //retrive object from local storage and convert it to project
     function getProject(title){
+        
         let temp = convertHelper.objectToProject(JSON.parse(localStorage.getItem(title)));
+        
         return temp;
     }
 
@@ -94,13 +109,7 @@ const myStorage = (() =>{
 
     //convert flag into boolean
     function getFlag(flagName){
-
-        let flag =localStorage.getItem(flagName);
-        console.log("flag " + flag);
-        if(flag === "true" || flag === null){
-            return true;
-        }
-        return false;
+       return JSON.parse(localStorage.getItem(flagName));
     }
 
     function deleteProject(title){
@@ -118,18 +127,7 @@ const myStorage = (() =>{
         localStorage.removeItem("defualt");
     }
 
-    (function initUiFromStorage(){
-        let size = localStorage.length;
-        for (var i = 0; i < size; i++){
-            let temp =localStorage.getItem(localStorage.key(i));
-
-                if(temp !== "true" && temp !== "false"){
-                    //need to get the projects and initialize the tasks from here
-                    console.log("from storage");
-                    console.log(temp);
-                }
-        }
-    })();
+   
 
 
     return{
@@ -141,25 +139,53 @@ const myStorage = (() =>{
     }
 })();
 
-
 //NEED TO WORK ON THIS PART TO FIGURE OUT HOW TO INIT PROJECT AND TASKS FROM HERE
-const initializeUiFromStorage =(() =>{
 
-    (function initUiFromStorage(){
+const initializeUiFromStorage = (() =>{
+    
+    //well i call it from index , do the other stuff
+    function initUiFromStorage(){
         let size = localStorage.length;
-        let temp = "";
-        console.log("in storage " + typeof temp + "  " + size);
+       // let test = require("./objects").projectHandler;
+        
+       
         for (var i = 0; i < size; i++){
-            temp = localStorage.key(i);
-            console.log("in storage " + typeof temp);
-            console.log(temp);
+            let temp = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                if(typeof temp === "object" && temp.title !== "defualt"){
+                    //need to get the projects and initialize the tasks from here
+                    console.log(temp);
+                    let project = convertHelper.objectToProject(temp);
+                    elementCreator.projectToElment(project);
+                    
+                      
+                }   
         }
-    })();
+    };
+
+    
+    
+    
+    
+    
+    
 
     return {
-
+        initUiFromStorage,
     }
 
 })();
 
-export {myStorage};
+
+
+
+
+
+
+
+
+
+
+
+
+
+export {myStorage,initializeUiFromStorage };
