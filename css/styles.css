@@ -168,14 +168,13 @@ form{
     word-break: break-all;
     overflow: hidden;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .project span{
     font-size: 1.7rem;
     position: relative;
-    bottom: 9px;
-    left: 20px;
+    bottom: 10px;
     font: bold;
     cursor: pointer;
 
