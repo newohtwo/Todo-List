@@ -7,10 +7,14 @@ import {myStorage ,initializeUiFromStorage} from "./storage";
 
 initializeUiFromStorage.initUiFromStorage();
 
-let array = [1,2,3,4,5,6];
-let size = array.length;
-let temp = array.slice(0,size);
-console.log(temp);
+
+let size = localStorage.length;
+        
+       
+for (var i = 0; i < size; i++){
+    console.log(localStorage.getItem(localStorage.key(i)));
+        
+    }   
 
 
 //myStorage.saveFlag("defualtFlag",true);

@@ -91,7 +91,8 @@ const myStorage = (() =>{
     //save project after convertion into object in localstorage
     function saveProject(project){
         let tempP = project;
-        
+        console.log("in save project");
+        console.log(tempP.getTaskArr());
         localStorage.setItem(tempP.getTitle(),JSON.stringify(convertHelper.projectToObject(tempP)));
     }
 
@@ -135,6 +136,9 @@ const myStorage = (() =>{
         projectHandler.addTask(project,task);
         
         saveProject(project);
+        console.log("in add task to project");
+        console.log(project.getTaskArr());
+
     }
 
     function deleteTaskFromProject(pName,title){
@@ -165,7 +169,7 @@ const initializeUiFromStorage = (() =>{
     //well i call it from index , do the other stuff
     function initUiFromStorage(){
         let size = localStorage.length;
-        
+        let doOnce = true;
        // let test = require("./objects").projectHandler;
         
        
@@ -177,19 +181,19 @@ const initializeUiFromStorage = (() =>{
                     
                     let project = convertHelper.objectToProject(temp);
                     elementCreator.projectToElment(project);
-                   
+
+                    if(doOnce){
+                    //convert only one of the projects tasks to show for the user
                     let taskArray = project.getTaskArr();
-                   
                     let size = taskArray.length;
-                   
                     for (let index = 0; index < size; index++) {
                         elementCreator.tasksToElement(taskArray[index]);
                     }
-
                     elementCreator.subTitleOfCurrentProject(project.getTitle());
+                    doOnce = false;
+                }
                     
                     
-                    return;
                     
                     //choose the first project encounterd in the system and showcase that one 
                     //take the tasks from the project and add them into the grid seperatly do it once

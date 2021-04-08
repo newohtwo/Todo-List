@@ -3,7 +3,7 @@ import {myStorage} from "./storage";
 import {projectHandler,taskHandler} from "./objects";
 
 
-//TODO project and task are not saved check 
+//TODO place the click for chooseing the project on the text or the border below it , but not on the whole project ,gives errors because after deletion it cant access that info
 
 //add elements with thier behaviour
 const elementCreator = (() =>{
@@ -84,7 +84,7 @@ const elementCreator = (() =>{
 
             dom.deleteAllElementsFromGrid();
             subTitleOfCurrentProject(tempP.getTitle());
-            _tasksToElements(tempP.getTaskArr());
+            _tasksToElements(myStorage.getProject(tempP.getTitle()).getTaskArr());
             
             
            
@@ -119,7 +119,6 @@ const elementCreator = (() =>{
         let size = arr.length;
         for (let index = 0; index < size; index++) {
             taskToElement(arr[index]);
-            console.log(index);
         }
     }
 
