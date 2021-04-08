@@ -25,34 +25,26 @@
 <body>
   <div class="display-none" id="sidebar">
     <h2>Projects:</h2>
-     <!--
+    <!--
     <form id = "project-form">
       test
     </form>
     -->
 
-    
-
-
     <button id="add-project-btn">New Project <span id="plus-icon-project">+</span>
     </button>
 
-    <div class = "display-none" id ="popup-form">
+    <div class="display-none" id="popup-form">
       <form>
-        <input type="text" id = "new-project-name" placeholder="project name">
+        <input type="text" id="new-project-name" placeholder="project name">
       </form>
 
-      <div class = "btns">
-        <button id = "cancel-btn" > cancel </button>
-        <button id = "add-btn" > add </button>
+      <div class="btns">
+        <button id="cancel-btn"> cancel </button>
+        <button id="add-btn"> add </button>
       </div>
 
     </div>
-
-    
-    
-    
-
 
     <!--
       <div class = "project">
@@ -60,6 +52,56 @@
       </div>
     -->
   </div>
+
+  <div class="main">
+
+    
+    <h2 id="project-name">project name</h2>
+  
+    <div id="grid-container">
+
+      <!-- and copy this
+      <div class="task">
+        <p class = "task-text">eat dinner with friends</p>
+        <p class = "task-date">30/21/2021</p>
+        <span>X</span>
+      </div>
+      <div class="task">
+        <p>task2</p>
+  
+        <span>X</span>
+      </div>
+       -->
+
+      
+
+
+
+    </div>
+  </div>
+  <img id="plus-icon" src="./imgs/plus.png" alt="plus sign">
+
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+
+      <p>add a new task:</p>
+      <input type="text" id="modal-task-name" placeholder="task name">
+      <p>add a date for the task:</p>
+      <input type="date" id="modal-task-date">
+
+      <div class = "modal-btns">
+        <button id = "modal-add-btn">Add</button>
+        <button id = "modal-cancel-btn">Cancel</button>
+      </div>
+
+    </div>
+
+  </div>
+
 
   <script src="main.js"></script>
 </body>
