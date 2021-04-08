@@ -2,7 +2,7 @@
 import {myStorage} from "./storage";
 import {elementCreator} from "./user-interface";
 
-const _toDoTaskFactory = (title,desc,date,prio = 1) =>{
+const _toDoTaskFactory = (title,desc = "",date,prio = 1) =>{
 
     //getters setters
     return{
@@ -49,6 +49,9 @@ const _projectFactory = (title,toDoArr =[]) =>{
         setTitle(newTitle){
           title = newTitle;
         },
+        setTaskArr(array){
+          toDoArr = array;
+        }
         
     }
 
@@ -85,6 +88,7 @@ const projectHandler = (() =>{
 
     }
 
+    //check for duplicate names in project
     function checkForDuplicates(title){
       
       if(localStorage.getItem(title) === null){
@@ -96,19 +100,28 @@ const projectHandler = (() =>{
     }
 
     
-
+    //tells project is undefined
     function addTask(project,task){
         project.getTaskArr().push(task);
     }
 
     function deleteTask(project,title){
+      //something is wrong here
+      
 
-        let size = project.toDoArr.length;
-        let tempArr = project.toDoArr.slice(0,size);
-        let index = tempArr.indexOf(title);
-        tempArr.splice(index,1);
+      let size = project.getTaskArr().length;
+      let tempArr = project.getTaskArr();
 
-        project.toDoArr = tempArr;
+      for (let index = 0; index < size; index++) {
+        if(tempArr[index].getTitle() === title){
+          tempArr.splice(index,1);
+          break;
+        }
+      }
+
+      project.setTaskArr(tempArr);
+       
+
 
     }
 
@@ -122,7 +135,7 @@ const projectHandler = (() =>{
 
     return{
         newProject,
-        addTask:addTask,
+        addTask,
         deleteTask,
        // defualtProjectData, maybe wont be needed ! ! ! ! ! ! ! ! ! ! ! ! 
 

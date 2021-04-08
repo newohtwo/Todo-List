@@ -54,7 +54,7 @@ const convertHelper = (() =>{
 
         let tempO = object;
 
-        console.log("todoarr " + tempO.toDoArr.length );
+       
         let size = tempO.toDoArr.length;
         let tempArr = [];
 
@@ -87,7 +87,7 @@ const convertHelper = (() =>{
 
 //saves and gets data from localstorage
 const myStorage = (() =>{
-
+    
     //save project after convertion into object in localstorage
     function saveProject(project){
         let tempP = project;
@@ -127,6 +127,22 @@ const myStorage = (() =>{
         localStorage.removeItem("defualt");
     }
 
+    //add new task to project and save project
+    function addTaskToProject(pName,task){
+        
+        let project = getProject(pName);
+       
+        projectHandler.addTask(project,task);
+        
+        saveProject(project);
+    }
+
+    function deleteTaskFromProject(pName,title){
+        let project = getProject(pName);
+        projectHandler.deleteTask(project,title);
+        saveProject(project);
+
+    }
    
 
 
@@ -136,6 +152,9 @@ const myStorage = (() =>{
         saveFlag,
         getFlag,
         deleteProject,
+        addTaskToProject,
+        deleteTaskFromProject,
+        
     }
 })();
 
@@ -146,16 +165,35 @@ const initializeUiFromStorage = (() =>{
     //well i call it from index , do the other stuff
     function initUiFromStorage(){
         let size = localStorage.length;
+        
        // let test = require("./objects").projectHandler;
         
        
         for (var i = 0; i < size; i++){
             let temp = JSON.parse(localStorage.getItem(localStorage.key(i)));
+           
                 if(typeof temp === "object" && temp.title !== "defualt"){
                     //need to get the projects and initialize the tasks from here
-                    console.log(temp);
+                    
                     let project = convertHelper.objectToProject(temp);
                     elementCreator.projectToElment(project);
+                   
+                    let taskArray = project.getTaskArr();
+                   
+                    let size = taskArray.length;
+                   
+                    for (let index = 0; index < size; index++) {
+                        elementCreator.tasksToElement(taskArray[index]);
+                    }
+
+                    elementCreator.subTitleOfCurrentProject(project.getTitle());
+                    
+                    
+                    return;
+                    
+                    //choose the first project encounterd in the system and showcase that one 
+                    //take the tasks from the project and add them into the grid seperatly do it once
+                    //evrey click on project will load the other tasks
                     
                       
                 }   
