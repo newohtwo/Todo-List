@@ -172,8 +172,9 @@ const defualtData = (() => {
   }
 
   return {
-    defualtProject: _saveDefualtProject
+    defualtProject: _saveDefualtProject,
+    initDefualtProject,
   }
 })()
 
-export { projectHandler, taskHandler }
+export { projectHandler, taskHandler ,defualtData }

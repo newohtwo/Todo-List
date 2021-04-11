@@ -1,7 +1,7 @@
-import { projectHandler, taskHandler } from './objects'
+import { projectHandler, taskHandler ,defualtData } from './objects'
 import { dom } from './user-interface'
 import { myStorage, initializeUiFromStorage } from './storage'
-
+defualtData.initDefualtProject();
 initializeUiFromStorage.initUiFromStorage()
 
 // myStorage.saveFlag("defualtFlag",true);
