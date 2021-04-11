@@ -140,12 +140,12 @@ const defualtData = (() => {
   }
   
   // initalize defualt project, save it to storage, if was deleted wont show it again
-  (function initDefualtProject () {
+  function initDefualtProject () {
     const defualtKey = myStorage.getFlag('defualtFlag')
     const defaultProject = myStorage.getProject('defualt')
 
     _checkExistence(defualtKey, defaultProject)
-  })()
+  }
 
   // check the existence of the project, create or retrive from local
   function _checkExistence (defualtKey, defaultProject) {
