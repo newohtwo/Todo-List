@@ -70,6 +70,19 @@ const elementCreator = (() =>{
         let xSign = document.createElement("span");
         xSign.textContent = "x";
         //the project
+
+        text.onclick = function(){
+            if(currentProjectTitle === tempP.getTitle()){
+                console.log("user press on same project do nothing");
+                return;
+            }
+
+            dom.deleteAllElementsFromGrid();
+            subTitleOfCurrentProject(tempP.getTitle());
+            _tasksToElements(myStorage.getProject(tempP.getTitle()).getTaskArr());
+
+        }
+        /*
         element.onclick = function(){
             //from a click on this , get the title of the project and its tasks into a function
             //get all the tasks and convert t hem into elements
@@ -89,6 +102,7 @@ const elementCreator = (() =>{
             
            
         }
+        */
         //x of the project
         xSign.onclick = function(){
             //delete the project 
